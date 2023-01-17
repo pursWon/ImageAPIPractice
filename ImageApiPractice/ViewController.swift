@@ -19,10 +19,9 @@ class ViewController: UIViewController {
     
     func setBorder() {
         let views: [UIView] = [imageViewOne, imageViewTwo, imageViewThree, imageViewFour]
-        views.forEach {
-            $0.layer.borderColor = UIColor.black.cgColor
-            $0.layer.borderWidth = 3
-            $0.layer.cornerRadius = 10
+        views.forEach { imageView in
+            imageView.layer.borderWidth = 3
+            imageView.layer.borderColor = UIColor.black.cgColor
         }
     }
     
@@ -41,12 +40,38 @@ class ViewController: UIViewController {
             case 200:
                 guard let data = try? JSONDecoder().decode(Image.self, from: data) else { return }
                 self.dataList = data.documents
-                guard let imageURL = URL(string: self.dataList[0].image_url) else { return }
-                if let data = try? Data(contentsOf: imageURL) {
+                guard let imageURL1 = URL(string: self.dataList[0].image_url) else { return }
+                        
+                        if let imageData = try? Data(contentsOf: imageURL1) {
+                            DispatchQueue.main.async {
+                                self.imageViewOne.image = UIImage(data: imageData)
+                            }
+                        }
+                
+                guard let imageURL2 = URL(string: self.dataList[1].image_url) else { return }
+                
+                if let imageData = try? Data(contentsOf: imageURL2) {
                     DispatchQueue.main.async {
-                        self.imageViewOne.image = UIImage(data: data)
+                        self.imageViewTwo.image = UIImage(data: imageData)
                     }
                 }
+                
+                guard let imageURL3 = URL(string: self.dataList[2].image_url) else { return }
+                
+                if let imageData = try? Data(contentsOf: imageURL3) {
+                    DispatchQueue.main.async {
+                        self.imageViewThree.image = UIImage(data: imageData)
+                    }
+                }
+                
+                guard let imageURL4 = URL(string: self.dataList[3].image_url) else { return }
+                
+                if let imageData = try? Data(contentsOf: imageURL4) {
+                    DispatchQueue.main.async {
+                        self.imageViewFour.image = UIImage(data: imageData)
+                    }
+                }
+                
             default:
                 print("데이터 연결 실패")
             }
