@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="ImageApiPractice" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fdj-yn-L3G">
+                                <rect key="frame" x="20" y="164" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="cNu-8C-PIa"/>
+                                    <constraint firstAttribute="width" constant="150" id="gXV-zY-2MF"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HCa-Gj-cEg">
+                                <rect key="frame" x="244" y="164" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="9oX-Gb-qF7"/>
+                                    <constraint firstAttribute="height" constant="150" id="HmE-rK-0Tf"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UZR-g1-HNf">
+                                <rect key="frame" x="20" y="444" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="MVz-Rr-lj8"/>
+                                    <constraint firstAttribute="width" constant="150" id="arN-Yu-oFE"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aX2-uG-MKS">
+                                <rect key="frame" x="244" y="444" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="Epr-b9-Y83"/>
+                                    <constraint firstAttribute="width" constant="150" id="vpx-Ga-Ejy"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="HCa-Gj-cEg" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="120" id="7Zu-7k-oBN"/>
+                            <constraint firstItem="fdj-yn-L3G" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="120" id="8vX-IV-Gd7"/>
+                            <constraint firstItem="fdj-yn-L3G" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="CWH-lW-GaQ"/>
+                            <constraint firstItem="aX2-uG-MKS" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="400" id="Nmu-Ax-DAm"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="aX2-uG-MKS" secondAttribute="trailing" constant="20" id="ZbL-Re-5Md"/>
+                            <constraint firstItem="UZR-g1-HNf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="fUo-7Y-aDp"/>
+                            <constraint firstItem="UZR-g1-HNf" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="400" id="ldh-N5-rmG"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="HCa-Gj-cEg" secondAttribute="trailing" constant="20" id="yAa-8e-S6i"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="imageViewFour" destination="aX2-uG-MKS" id="9Mf-lS-5bJ"/>
+                        <outlet property="imageViewOne" destination="fdj-yn-L3G" id="Ya2-51-kWk"/>
+                        <outlet property="imageViewThree" destination="UZR-g1-HNf" id="WTY-xS-sqZ"/>
+                        <outlet property="imageViewTwo" destination="HCa-Gj-cEg" id="Bg8-ry-UFA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="34.782608695652179" y="97.767857142857139"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
