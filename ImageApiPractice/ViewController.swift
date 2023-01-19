@@ -40,37 +40,23 @@ class ViewController: UIViewController {
             case 200:
                 guard let data = try? JSONDecoder().decode(Image.self, from: data) else { return }
                 self.dataList = data.documents
-                guard let imageURL1 = URL(string: self.dataList[0].image_url) else { return }
-                        
-                        if let imageData = try? Data(contentsOf: imageURL1) {
-                            DispatchQueue.main.async {
-                                self.imageViewOne.image = UIImage(data: imageData)
-                            }
-                        }
                 
-                guard let imageURL2 = URL(string: self.dataList[1].image_url) else { return }
-                
-                if let imageData = try? Data(contentsOf: imageURL2) {
+                func imageToData(imageString: String, picture: UIImageView) {
+                    guard let imageURL = URL(string: imageString) else { return }
+                            
+                    guard let imageData = try? Data(contentsOf: imageURL) else { return }
                     DispatchQueue.main.async {
-                        self.imageViewTwo.image = UIImage(data: imageData)
+                        picture.image = UIImage(data: imageData)
                     }
                 }
                 
-                guard let imageURL3 = URL(string: self.dataList[2].image_url) else { return }
+                imageToData(imageString: self.dataList[0].image_url, picture: self.imageViewOne)
                 
-                if let imageData = try? Data(contentsOf: imageURL3) {
-                    DispatchQueue.main.async {
-                        self.imageViewThree.image = UIImage(data: imageData)
-                    }
-                }
+                imageToData(imageString: self.dataList[1].image_url, picture: self.imageViewTwo)
                 
-                guard let imageURL4 = URL(string: self.dataList[3].image_url) else { return }
+                imageToData(imageString: self.dataList[2].image_url, picture: self.imageViewThree)
                 
-                if let imageData = try? Data(contentsOf: imageURL4) {
-                    DispatchQueue.main.async {
-                        self.imageViewFour.image = UIImage(data: imageData)
-                    }
-                }
+                imageToData(imageString: self.dataList[3].image_url, picture: self.imageViewFour)
                 
             default:
                 print("데이터 연결 실패")
