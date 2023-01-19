@@ -8,6 +8,7 @@ class ViewController: UIViewController {
     
     let url: String = "https://dapi.kakao.com/v2/search/image?query=%EC%BF%A8%EB%A3%A8%EC%85%89%EC%8A%A4%ED%82%A4"
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         getImage()
