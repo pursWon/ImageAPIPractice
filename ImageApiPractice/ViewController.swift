@@ -2,10 +2,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var imageViewOne: UIImageView!
-    @IBOutlet weak var imageViewTwo: UIImageView!
-    @IBOutlet weak var imageViewThree: UIImageView!
-    @IBOutlet weak var imageViewFour: UIImageView!
+    @IBOutlet weak var tableView: UITableView!
     
     var dataList: [Contents] = []
     
@@ -13,16 +10,9 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setBorder()
         getImage()
-    }
-    
-    func setBorder() {
-        let views: [UIView] = [imageViewOne, imageViewTwo, imageViewThree, imageViewFour]
-        views.forEach { imageView in
-            imageView.layer.borderWidth = 3
-            imageView.layer.borderColor = UIColor.black.cgColor
-        }
+        tableView.delegate = self
+        tableView.dataSource = self
     }
     
     func getImage() {
@@ -40,23 +30,9 @@ class ViewController: UIViewController {
             case 200:
                 guard let data = try? JSONDecoder().decode(Image.self, from: data) else { return }
                 self.dataList = data.documents
-                
-                func imageToData(imageString: String, picture: UIImageView) {
-                    guard let imageURL = URL(string: imageString) else { return }
-                            
-                    guard let imageData = try? Data(contentsOf: imageURL) else { return }
-                    DispatchQueue.main.async {
-                        picture.image = UIImage(data: imageData)
-                    }
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
                 }
-                
-                imageToData(imageString: self.dataList[0].image_url, picture: self.imageViewOne)
-                
-                imageToData(imageString: self.dataList[1].image_url, picture: self.imageViewTwo)
-                
-                imageToData(imageString: self.dataList[2].image_url, picture: self.imageViewThree)
-                
-                imageToData(imageString: self.dataList[3].image_url, picture: self.imageViewFour)
                 
             default:
                 print("데이터 연결 실패")
@@ -66,3 +42,22 @@ class ViewController: UIViewController {
     }
 }
 
+extension ViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return dataList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell" , for: indexPath) as? MyCell else { return UITableViewCell() }
+        
+        if let imageURL = URL(string: dataList[indexPath.row].image_url), let imageData = try? Data(contentsOf: imageURL) {
+            cell.myImageView.image = UIImage(data: imageData)
+        }
+        
+        return cell
+    }
+}
+
+class MyCell: UITableViewCell {
+    @IBOutlet weak var myImageView: UIImageView!
+}
