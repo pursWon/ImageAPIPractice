@@ -1,4 +1,5 @@
 import UIKit
+import Alamofire
 
 class ViewController: UIViewController {
     
@@ -6,40 +7,34 @@ class ViewController: UIViewController {
     
     var dataList: [Contents] = []
     
-    let url: String = "https://dapi.kakao.com/v2/search/image?query=%EC%BF%A8%EB%A3%A8%EC%85%89%EC%8A%A4%ED%82%A4"
-    
+    let url: String = "https://dapi.kakao.com/v2/search/image"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getImage()
+        getAlamofire(url: url)
         tableView.delegate = self
         tableView.dataSource = self
     }
     
-    func getImage() {
-        guard let url = URL(string: url) else { return }
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.setValue("KakaoAK d8b066a3dbb0e888b857f37b667d96d2", forHTTPHeaderField: "Authorization")
+    func getAlamofire(url: String) {
+        let headers: HTTPHeaders = [
+            "Authorization" : "KakaoAK d8b066a3dbb0e888b857f37b667d96d2"
+        ]
         
-        let dataTask = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data else { return }
-            guard let response = response as? HTTPURLResponse else { return }
-            guard error == nil else { return  }
+        let parameters: [String : Any] = [
+            "query" : "쿨루셉스키"
+        ]
+        
+        AF.request(url, method: .get, parameters: parameters, headers: headers).responseDecodable(of: Image.self) { response in
+            debugPrint(response.value)
             
-            switch response.statusCode {
-            case 200:
-                guard let data = try? JSONDecoder().decode(Image.self, from: data) else { return }
+            if let data = response.value {
                 self.dataList = data.documents
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
-                
-            default:
-                print("데이터 연결 실패")
             }
         }
-        dataTask.resume()
     }
 }
 
@@ -51,7 +46,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell" , for: indexPath) as? MyCell else { return UITableViewCell() }
         
-        if let imageURL = URL(string: dataList[indexPath.row].image_url), let imageData = try? Data(contentsOf: imageURL) {
+        if let imageURL = URL(string: dataList[indexPath.row].image_url),
+            let imageData = try? Data(contentsOf: imageURL) {
             cell.myImageView.image = UIImage(data: imageData)
         }
         
